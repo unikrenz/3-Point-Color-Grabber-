@@ -30,11 +30,11 @@ const int serverPort = 3000;
 
 unsigned long lastUpdate = millis();
 unsigned long lastReconnectAttempt = 0;
-const unsigned long reconnectInterval = 5000; // 5 seconds
+const unsigned long reconnectInterval = 5000; 
 
 unsigned long previousMillis = 0;
-const long interval = 1000; // Interval to send data (milliseconds)
-const int servoDelay = 0; // Delay for servo movement
+const long interval = 1000;
+const int servoDelay = 0; 
 
 void sendDataToServer(byte sensorNum, uint8_t r, uint8_t g, uint8_t b) {
     DynamicJsonDocument jsonDoc(128);
@@ -81,14 +81,12 @@ void setup() {
 }
 
 void loop() {
-    // Rotate the servo from 0 to 180 degrees
     for (int angle = 0; angle <= 180; angle++) {
         myServo.write(angle);
         delay(servoDelay); 
         sendSensorData();
     }
 
-    // Rotate the servo from 180 to 0 degrees
     for (int angle = 180; angle >= 0; angle--) {
         myServo.write(angle);
         delay(servoDelay); 
@@ -119,7 +117,6 @@ void readColors(byte sensorNum, uint16_t &r, uint16_t &g, uint16_t &b, uint16_t 
 }
 
 void displayColorOnScreen(byte sensorNum, uint16_t r, uint16_t g, uint16_t b) {
-    // Clear the portion of the screen corresponding to the sensor
     int startX = sensorNum * (tft.width() / 3);
     int endX = startX + (tft.width() / 3);
     tft.fillRect(startX, 0, endX - startX, tft.height(), ST77XX_BLACK);
